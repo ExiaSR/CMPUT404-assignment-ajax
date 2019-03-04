@@ -84,8 +84,10 @@ def hello():
 @app.route("/entity/<entity>", methods=["POST", "PUT"])
 def update(entity):
     """update the entities via this interface"""
-    body = request.get_json()
-    print(body)
+    # get_json won't work with the freetest, unless we rafactor it
+    # to use the proper flask 1.0.0 api
+    # body = request.get_json()
+    body = flask_post_json()
     for k, v in body.items():
         myWorld.update(entity, k, v)
     world = myWorld.world()
